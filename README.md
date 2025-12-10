@@ -1,227 +1,268 @@
-Sistema de Gestão de Posto de Combustível
+# Sistema de Gestão de Posto de Combustível
 
 Este repositório apresenta o modelo de banco de dados desenvolvido para um sistema de gerenciamento de um posto de combustível. O sistema contempla o controle de vendas, empregados, departamentos, combustíveis, abastecimentos, volumes e informações complementares como endereços, telefones e dependentes.
 
-Estrutura do Banco de Dados
+## Estrutura do Banco de Dados
 
 O modelo foi construído em MySQL e é composto pelas seguintes entidades:
 
-EMPREGADO
+----------
+
+## EMPREGADO
 
 Armazena os dados dos empregados do posto.
 
-Atributos principais:
+**Atributos principais:**
 
-cpf_empregado (PK)
+-   `cpf_empregado` (PK)
+    
+-   `nome`
+    
+-   `sexo` (ENUM 'M', 'F')
+    
+-   `salario`
+    
+-   `DEPARTAMENTO_idDEPARTAMENTO` (FK – obrigatório)
+    
+-   `ENDEREÇO_idENDEREÇO` (FK – opcional)
+    
 
-nome
+**Relacionamentos:**
 
-sexo (ENUM 'M', 'F')
+-   Cada empregado pertence a um departamento.
+    
+-   Pode possuir telefone(s).
+    
+-   Pode ter dependentes.
+    
+-   Pode realizar vendas.
+    
 
-salario
+----------
 
-DEPARTAMENTO_idDEPARTAMENTO (FK – obrigatório)
-
-ENDEREÇO_idENDEREÇO (FK – opcional)
-
-Relacionamentos:
-
-Cada empregado pertence a um departamento.
-
-Pode possuir telefone(s).
-
-Pode ter dependentes.
-
-Pode realizar vendas.
-
-DEPARTAMENTO
+## DEPARTAMENTO
 
 Guarda informações sobre os departamentos existentes no posto.
 
-Atributos:
+**Atributos:**
 
-idDEPARTAMENTO (PK)
+-   `idDEPARTAMENTO` (PK)
+    
+-   `nome`
+    
+-   `email`
+    
+-   `descricao`
+    
+-   `local`
+    
+-   `cpf_gerente` (FK — opcional)
+    
 
-nome
+**Relacionamentos:**
 
-email
+-   Um departamento pode ter vários empregados.
+    
 
-descricao
+----------
 
-local
-
-cpf_gerente (FK — opcional)
-
-Relacionamentos:
-
-Um departamento pode ter vários empregados.
-
-ENDEREÇO
+## ENDEREÇO
 
 Registra os endereços associados aos empregados.
 
-Atributos:
+**Atributos:**
 
-idENDEREÇO (PK)
+-   `idENDEREÇO` (PK)
+    
+-   `cidade`
+    
+-   `bairro`
+    
+-   `rua`
+    
+-   `numero`
+    
+-   `complemento`
+    
+-   `cep`
+    
 
-cidade
+**Relacionamentos:**
 
-bairro
+-   Um endereço pode estar associado a um empregado.
+    
 
-rua
+----------
 
-numero
-
-complemento
-
-cep
-
-Relacionamentos:
-
-Um endereço pode estar associado a um empregado.
-
-TELEFONE
+## TELEFONE
 
 Armazena os telefones dos empregados.
 
-Atributos:
+**Atributos:**
 
-idTELEFONE (PK)
+-   `idTELEFONE` (PK)
+    
+-   `numero`
+    
+-   `EMPREGADO_cpf_empregado` (FK)
+    
 
-numero
+**Relacionamentos:**
 
-EMPREGADO_cpf_empregado (FK)
+-   Cada telefone pertence a um empregado.
+    
 
-Relacionamentos:
+----------
 
-Cada telefone pertence a um empregado.
-
-DEPENDENTES
+## DEPENDENTES
 
 Contém os dependentes dos empregados.
 
-Atributos:
+**Atributos:**
 
-CPF (PK)
+-   `CPF` (PK)
+    
+-   `nome`
+    
+-   `DataNasc`
+    
+-   `parentesco`
+    
+-   `EMPREGADO_cpf_empregado` (FK)
+    
 
-nome
+**Relacionamentos:**
 
-DataNasc
+-   Cada dependente está vinculado a um empregado.
+    
 
-parentesco
+----------
 
-EMPREGADO_cpf_empregado (FK)
-
-Relacionamentos:
-
-Cada dependente está vinculado a um empregado.
-
-VENDAS
+## VENDAS
 
 Registra as vendas realizadas no posto.
 
-Atributos:
+**Atributos:**
 
-idVENDAS (PK)
+-   `idVENDAS` (PK)
+    
+-   `data`
+    
+-   `valorTOTAL`
+    
+-   `EMPREGADO_cpf_empregado` (FK – obrigatório)
+    
+-   `BOMBCOMB_idBOMBCOMB` (FK)
+    
+-   `FORMAS_PAG_idFORMAS_PAG` (FK)
+    
+-   `ITENS_VENDA_idITENS_VENDA` (FK)
+    
 
-data
+**Relacionamentos:**
 
-valorTOTAL
+-   Cada venda é realizada por um empregado.
+    
+-   Pode incluir itens de venda.
+    
+-   Está vinculada a uma forma de pagamento.
+    
+-   Pode registrar o abastecimento realizado em uma bomba.
+    
 
-EMPREGADO_cpf_empregado (FK – obrigatório)
+----------
 
-BOMBCOMB_idBOMBCOMB (FK)
-
-FORMAS_PAG_idFORMAS_PAG (FK)
-
-ITENS_VENDA_idITENS_VENDA (FK)
-
-Relacionamentos:
-
-Cada venda é realizada por um empregado.
-
-Pode incluir itens de venda.
-
-Está vinculada a uma forma de pagamento.
-
-Pode registrar o abastecimento realizado em uma bomba.
-
-COMBUSTIVEL
+## COMBUSTIVEL
 
 Registra os combustíveis disponíveis para venda.
 
-Atributos:
+**Atributos:**
 
-idItem_COMBUSTIVEL (PK)
+-   `idItem_COMBUSTIVEL` (PK)
+    
+-   `nome`
+    
+-   `quantidade`
+    
+-   `valor`
+    
+-   `BOMBCOMB_idBOMBCOMB` (FK)
+    
 
-nome
+**Relacionamentos:**
 
-quantidade
+-   Um combustível pode aparecer em vários itens de venda.
+    
+-   Pode estar vinculado a uma bomba.
+    
 
-valor
+----------
 
-BOMBCOMB_idBOMBCOMB (FK)
-
-Relacionamentos:
-
-Um combustível pode aparecer em vários itens de venda.
-
-Pode estar vinculado a uma bomba.
-
-ITENS_VENDA
+## ITENS_VENDA
 
 Representa os combustíveis que fazem parte de cada venda.
 
-Atributos:
+**Atributos:**
 
-idITENS_VENDA (PK)
+-   `idITENS_VENDA` (PK)
+    
+-   `combustiveis` (FK para COMBUSTIVEL)
+    
 
-combustiveis (FK para COMBUSTIVEL)
+**Relacionamentos:**
 
-Relacionamentos:
+-   Cada item está ligado a uma venda.
+    
+-   Cada item referencia um tipo de combustível.
+    
 
-Cada item está ligado a uma venda.
+----------
 
-Cada item referencia um tipo de combustível.
-
-FORMAS_PAG
+## FORMAS_PAG
 
 Armazena os métodos de pagamento aceitos.
 
-Atributos:
+**Atributos:**
 
-idFORMAS_PAG (PK)
+-   `idFORMAS_PAG` (PK)
+    
+-   `cartao`
+    
+-   `pix`
+    
+-   `especie`
+    
 
-cartao
+----------
 
-pix
-
-especie
-
-BOMBCOMB
+## BOMBCOMB
 
 Registra os abastecimentos realizados nas bombas de combustível.
 
-Atributos:
+**Atributos:**
 
-idBOMBCOMB (PK)
+-   `idBOMBCOMB` (PK)
+    
+-   `DataHora_Abastecimento`
+    
 
-DataHora_Abastecimento
+**Relacionamentos:**
 
-Relacionamentos:
+-   Pode estar associado a combustíveis.
+    
+-   Pode ser usado em uma venda.
+    
+-   Relaciona-se com os volumes registrados.
+    
 
-Pode estar associado a combustíveis.
+----------
 
-Pode ser usado em uma venda.
-
-Relaciona-se com os volumes registrados.
-
-VOLUME
+## VOLUME
 
 Controla o volume de combustível associado às bombas.
 
-Atributos:
+**Atributos:**
 
-idVOLUME (PK)
-
-BOMBCOMB_idBOMBCOMB (FK)
+-   `idVOLUME` (PK)
+    
+-   `BOMBCOMB_idBOMBCOMB` (FK)
