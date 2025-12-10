@@ -22,9 +22,9 @@ Armazena os dados dos empregados do posto.
     
 -   `salario`
     
--   `DEPARTAMENTO_idDEPARTAMENTO` (FK – obrigatório)
+-   `DEPARTAMENTO_idDEPARTAMENTO` (FK)
     
--   `ENDEREÇO_idENDEREÇO` (FK – opcional)
+-   `ENDEREÇO_idENDEREÇO` (FK)
     
 
 **Relacionamentos:**
@@ -56,7 +56,7 @@ Guarda informações sobre os departamentos existentes no posto.
     
 -   `local`
     
--   `cpf_gerente` (FK — opcional)
+-   `cpf_gerente` (FK)
     
 
 **Relacionamentos:**
@@ -150,7 +150,7 @@ Registra as vendas realizadas no posto.
     
 -   `valorTOTAL`
     
--   `EMPREGADO_cpf_empregado` (FK – obrigatório)
+-   `EMPREGADO_cpf_empregado` (FK)
     
 -   `BOMBCOMB_idBOMBCOMB` (FK)
     
