@@ -2,6 +2,9 @@
 
 Este repositório apresenta o modelo de banco de dados desenvolvido para um sistema de gerenciamento de um posto de combustível. O sistema contempla o controle de vendas, empregados, departamentos, combustíveis, abastecimentos, volumes e informações complementares como endereços, telefones e dependentes.
 
+<img width="707" height="817" alt="image" src="https://github.com/user-attachments/assets/1ed06b10-9d27-43e4-998e-018a57d39430" />
+
+
 ## Estrutura do Banco de Dados
 
 O modelo foi construído em MySQL e é composto pelas seguintes entidades:
